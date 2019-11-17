@@ -6,6 +6,11 @@ if exists('skip_defaults_vim')
 	finish
 endif
 
+set langmenu=en_US
+let $LANG = 'en_US'
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
 filetype indent plugin on
 
 if &compatible
@@ -16,14 +21,22 @@ silent! while 0
 	set nocompatible
 silent! endwhile
 
-set langmenu=en_US
-let $LANG = 'en_US'
-
 set nu!
 set ai!
 
 colo ron
+if has("gui_running")
+  if has("gui_gtk2")
+    set guifont=Monaco\ 12
+  elseif has("gui_macvim")
+    set guifont=Source\ Code\ Pro:h14
+  elseif has("gui_win32")
+    set guifont=Consolas:h11:cANSI
+  endif
+endif
+
 syntax on
+
 set shiftwidth=2
 set softtabstop=2
 set backspace=indent,eol,start
@@ -35,9 +48,7 @@ set wildmenu
 
 set ttimeout
 set ttimeoutlen=100
-
 set display=truncate
-
 set scrolloff=5
 
 if has('reltime')
